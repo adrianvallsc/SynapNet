@@ -1,0 +1,11 @@
+# Ignorar todos los archivos .DS_Store
+*.DS_Store
+
+# Ignorar la carpeta inferencia.nosync y su contenido
+inferencia.nosync/
+
+# Ignorar otras carpetas y archivos específicos
+../../trab_ruber/
+../../../../trab_hcsc/
+../../../../trab_vithas/
+
