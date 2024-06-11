@@ -1,4 +1,4 @@
-# SuperSeg Model 3000
+# SynapNet
 
 SynapNet is an image segmentation model designed to perform accurate segmentation of ischemic stroke in FLAIR images. The model leverages ANTs for image registration and nnU-Net for segmentation, providing state-of-the-art performance.
 
@@ -33,8 +33,8 @@ To set up the environment and install the required dependencies, follow these st
 
 1. **Clone the repository**:
     ```bash
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/adrianvallsc/SynapNet
+    cd SynapNet
     ```
 
 2. **Download the models**:
