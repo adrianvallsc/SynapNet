@@ -6,10 +6,13 @@ if [ ! -d "./models" ]; then
   mkdir -p ./models
 fi
 
+1VHEj-vU-f4qNhCKkYODlVQIfXkCRAuHs
+
+
 # Definir las URLs de los modelos en Google Drive
-GDRIVE_MODEL_URLS=("https://drive.google.com/file/d/1MdD47hvyO3I3gqwoEeSRmdAKpDSmdPlG/view?usp=sharing"
-                   "https://drive.google.com/file/d/1qh0xFqo6dDdZs7uzWbEwffkVEzqlvdK5/view?usp=sharing"
-                   "https://drive.google.com/file/d/1nIYT9BffV8eSEOOushCOcLTjjk_sP9Di/view?usp=sharing")
+GDRIVE_MODEL_URLS=("https://drive.google.com/uc?export=download&id=1MdD47hvyO3I3gqwoEeSRmdAKpDSmdPlG"
+                   "https://drive.google.com/uc?export=download&id=1qh0xFqo6dDdZs7uzWbEwffkVEzqlvdK5"
+                   "https://drive.google.com/uc?export=download&id=1nIYT9BffV8eSEOOushCOcLTjjk_sP9Di")
 
 # Descargar cada modelo desde Google Drive a la carpeta ./models
 for i in "${!GDRIVE_MODEL_URLS[@]}"; do
