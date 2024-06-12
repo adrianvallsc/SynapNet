@@ -6,18 +6,29 @@ if [ ! -d "./models" ]; then
   mkdir -p ./models
 fi
 
-1VHEj-vU-f4qNhCKkYODlVQIfXkCRAuHs
+# Verificar si pip está instalado, si no, instalarlo
+if ! command -v pip &> /dev/null; then
+  echo "pip no está instalado. Instalándolo..."
+  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  python get-pip.py
+  rm get-pip.py
+fi
 
+# Verificar si gdown está instalado, si no, instalarlo
+if ! command -v gdown &> /dev/null; then
+  echo "gdown no está instalado. Instalándolo..."
+  pip install gdown
+fi
 
-# Definir las URLs de los modelos en Google Drive
-GDRIVE_MODEL_URLS=("https://drive.google.com/uc?export=download&id=1MdD47hvyO3I3gqwoEeSRmdAKpDSmdPlG"
-                   "https://drive.google.com/uc?export=download&id=1qh0xFqo6dDdZs7uzWbEwffkVEzqlvdK5"
-                   "https://drive.google.com/uc?export=download&id=1nIYT9BffV8eSEOOushCOcLTjjk_sP9Di")
+# Definir las IDs de los modelos en Google Drive
+GDRIVE_MODEL_IDS=("1MdD47hvyO3I3gqwoEeSRmdAKpDSmdPlG"
+                  "1qh0xFqo6dDdZs7uzWbEwffkVEzqlvdK5"
+                  "1nIYT9BffV8eSEOOushCOcLTjjk_sP9Di")
 
 # Descargar cada modelo desde Google Drive a la carpeta ./models
-for i in "${!GDRIVE_MODEL_URLS[@]}"; do
+for i in "${!GDRIVE_MODEL_IDS[@]}"; do
   echo "Descargando el modelo ${i} desde Google Drive..."
-  wget --no-check-certificate "${GDRIVE_MODEL_URLS[$i]}" -O "./models/model_$i.zip"
+  gdown "https://drive.google.com/uc?export=download&id=${GDRIVE_MODEL_IDS[$i]}" -O "./models/model_$i.zip"
 
   # Verificar si la descarga fue exitosa
   if [ $? -eq 0 ]; then
@@ -42,3 +53,4 @@ for i in "${!GDRIVE_MODEL_URLS[@]}"; do
       exit 1
   fi
 done
+
