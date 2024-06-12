@@ -6,18 +6,36 @@ if [ ! -d "./models" ]; then
   mkdir -p ./models
 fi
 
-# Definir la URL del modelo en Google Drive
-GDRIVE_MODEL_URL="https://drive.google.com/drive/folders/1VHEj-vU-f4qNhCKkYODlVQIfXkCRAuHs?usp=drive_link"
+# Definir las URLs de los modelos en Google Drive
+GDRIVE_MODEL_URLS=("https://drive.google.com/file/d/1MdD47hvyO3I3gqwoEeSRmdAKpDSmdPlG/view?usp=sharing"
+                   "https://drive.google.com/file/d/1qh0xFqo6dDdZs7uzWbEwffkVEzqlvdK5/view?usp=sharing"
+                   "https://drive.google.com/file/d/1nIYT9BffV8eSEOOushCOcLTjjk_sP9Di/view?usp=sharing")
 
-# Descargar el modelo desde Google Drive a la carpeta ./models
-echo "Descargando el modelo desde Google Drive..."
-wget --no-check-certificate "$GDRIVE_MODEL_URL" -O ./models/
+# Descargar cada modelo desde Google Drive a la carpeta ./models
+for i in "${!GDRIVE_MODEL_URLS[@]}"; do
+  echo "Descargando el modelo ${i} desde Google Drive..."
+  wget --no-check-certificate "${GDRIVE_MODEL_URLS[$i]}" -O "./models/model_$i.zip"
 
-# Verificar si la descarga fue exitosa
-if [ $? -eq 0 ]; then
-    echo "El modelo se descargó correctamente."
+  # Verificar si la descarga fue exitosa
+  if [ $? -eq 0 ]; then
+      echo "El modelo ${i} se descargó correctamente."
+      
+      # Descomprimir el archivo .zip
+      echo "Descomprimiendo el modelo ${i}..."
+      unzip "./models/model_$i.zip" -d "./models/"
+      
+      # Verificar si la descompresión fue exitosa
+      if [ $? -eq 0 ]; then
+          echo "El modelo ${i} se descomprimió correctamente."
+          # Eliminar el archivo .zip
+          rm "./models/model_$i.zip"
+      else
+          echo "Hubo un problema al descomprimir el modelo ${i}."
+          exit 1
+      fi
 
-else
-    echo "Hubo un problema al descargar el modelo."
-    exit 1
-fi
+  else
+      echo "Hubo un problema al descargar el modelo ${i}."
+      exit 1
+  fi
+done
